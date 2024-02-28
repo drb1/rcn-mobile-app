@@ -6,7 +6,7 @@ export function MembershipScreen({navigation}) {
       <Text>Membership Screen</Text>
       <Button
         title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
+        onPress={() => navigation.navigate('Main')}
       />
     </View>
   );
