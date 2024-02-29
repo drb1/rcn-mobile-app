@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import {Text, View, Button, useColorScheme} from 'react-native';
 
-export function AboutScreen({navigation}) {
+export function FeedbackScreen({navigation}) {
     const { t } = useTranslation();
 
   return (

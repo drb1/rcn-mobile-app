@@ -1,8 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {Text, View, Button, useColorScheme, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  useColorScheme,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import {Avatar, Divider, ListItem} from '@rneui/themed';
 import {useState} from 'react';
+import colors from '../lib/colors';
 const list = [
   {
     name: 'Images',
@@ -20,11 +28,13 @@ const members = [
     name: 'Comittee Members',
     avatar_url:
       'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+      screen:'Comittee'
   },
   {
     name: 'Executive Members',
     avatar_url:
       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      screen:'Executive'
   },
 ];
 export function OthersScreen() {
@@ -32,35 +42,47 @@ export function OthersScreen() {
   const {t} = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const [expandedMembers, setExpandedMembers] = useState(false);
+  const onPressList = (id, screen) => () => {
+    navigation.navigate(screen, {id: id});
+  };
   return (
     <ScrollView
       contentContainerStyle={{
         flex: 1,
-        backgroundColor: '#fbe2e2',
+        backgroundColor: colors.backgroundColor,
       }}>
       <View style={{padding: 10}}>
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>About Us</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+        <Pressable onPress={onPressList('1', 'About')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>About Us</Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
         <Divider />
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Transparency</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+        <Pressable onPress={onPressList('1', 'Transparency')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                Transparency
+              </Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
         <Divider />
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Downloads</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+        <Pressable onPress={onPressList('1', 'Download')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Downloads</Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
         <Divider />
         <ListItem.Accordion
+        containerStyle={{padding:25}}
           content={
             <View style={{display: 'flex', flex: 1}}>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>
@@ -73,20 +95,22 @@ export function OthersScreen() {
             setExpanded(!expanded);
           }}>
           {list.map((l, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content>
-                <Text style={{fontWeight: 'bold'}}>{l.name}</Text>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
+            <Pressable key={i} onPress={onPressList(i, l.name)}>
+              <ListItem key={i} bottomDivider>
+                <ListItem.Content>
+                  <Text style={{fontWeight: 'bold'}}>{l.name}</Text>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            </Pressable>
           ))}
         </ListItem.Accordion>
+        <Divider />
         <ListItem.Accordion
+        containerStyle={{padding:25}}
           content={
             <View style={{display: 'flex', flex: 1}}>
-              <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                Members
-              </Text>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Members</Text>
             </View>
           }
           isExpanded={expandedMembers}
@@ -94,32 +118,45 @@ export function OthersScreen() {
             setExpandedMembers(!expandedMembers);
           }}>
           {members.map((l, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content>
-                <Text style={{fontWeight: 'bold'}}>{l.name}</Text>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
+            <Pressable key={i} onPress={onPressList(i, l.screen)}>
+              <ListItem key={i} bottomDivider>
+                <ListItem.Content>
+                  <Text style={{fontWeight: 'bold'}}>{l.name}</Text>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            </Pressable>
           ))}
         </ListItem.Accordion>
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Feedback</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Contact Us</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Privacy Policy</Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+        <Divider />
+        <Pressable onPress={onPressList('1', 'Feedback')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Feedback</Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
+        <Divider />
+        <Pressable onPress={onPressList('1', 'Contact')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Contact Us</Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
+        <Divider />
+        <Pressable onPress={onPressList('1', 'Privacy')}>
+          <ListItem containerStyle={{padding:25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                Privacy Policy
+              </Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
       </View>
     </ScrollView>
   );
