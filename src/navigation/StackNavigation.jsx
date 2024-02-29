@@ -7,7 +7,18 @@ import DetailsScreen from '../screens/NewsDetailsScreen';
 import Header from '../components/Header';
 import {BottomTab} from './BottomTabNavigation';
 import {Image} from 'react-native';
-import { OthersScreen } from '../screens/OthersScreen';
+import {OthersScreen} from '../screens/OthersScreen';
+import {AboutScreen} from '../screens/AboutScreen';
+import {ComitteeScreen} from '../screens/ComitteeScreen';
+import {ContactScreen} from '../screens/ContactScreen';
+import {DownloadScreen} from '../screens/DownloadsScreen';
+import {ExecutiveScreen} from '../screens/ExecutiveScreen';
+import {FeedbackScreen} from '../screens/Feedback';
+import {ImageScreen} from '../screens/ImageScreen';
+import {VideoScreen} from '../screens/VideoScreen';
+import {PrivacyScreen} from '../screens/PrivacyScreen';
+import {TransparencyScreen} from '../screens/TransparencyScreen';
+import ImageDetailsScreen from '../screens/ImageDetailScreen';
 
 const Stack = createNativeStackNavigator();
 const RightComponent = () => {
@@ -23,20 +34,102 @@ const RightComponent = () => {
 };
 export function RootStack() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}} >
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={BottomTab} />
-      {/* <Stack.Screen name="Membership" component={MembershipScreen} />
-      <Stack.Screen name="News" component={NewsScreen} />
-      <Stack.Screen name="Donate" component={DonateScreen} />
-      <Stack.Screen name="Others" component={OthersScreen} /> */}
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Comittee"
+        component={ComitteeScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Download"
+        component={DownloadScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Executive"
+        component={ExecutiveScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Feedback"
+        component={FeedbackScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Images"
+        component={ImageScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Videos"
+        component={VideoScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Privacy"
+        component={PrivacyScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="Transparency"
+        component={TransparencyScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
       <Stack.Screen
         name="DetailsScreen"
         component={DetailsScreen}
         options={{
           headerShown: true,
-          headerRight: () => (
-            <RightComponent/>
-          ),
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="ImageDetailsScreen"
+        component={ImageDetailsScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
         }}
       />
     </Stack.Navigator>
