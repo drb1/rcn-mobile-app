@@ -11,6 +11,9 @@ import {
   ImageBackground,
 } from 'react-native';
 import colors from '../lib/colors';
+import {useState} from 'react';
+import ImageView from 'react-native-image-viewing';
+
 const images = [
   {
     title: 'Image 1',
@@ -41,8 +44,11 @@ const images = [
 const {width} = Dimensions.get('window');
 export function ImageScreen({navigation}) {
   const {t} = useTranslation();
+  const [visible, setIsVisible] = useState(false);
+
   const onImagePress = id => () => {
-    navigation.navigate('ImageDetailsScreen', {blogId: id});
+    setIsVisible(true);
+   
   };
   return (
     <View
@@ -62,6 +68,12 @@ export function ImageScreen({navigation}) {
         {images.map((item, index) => {
           return (
             <Pressable key={index} onPress={onImagePress(item.title)}>
+              <ImageView
+                images={images}
+                imageIndex={0}
+                visible={visible}
+                onRequestClose={() => setIsVisible(false)}
+              />
               <ImageBackground
                 source={{uri: item.uri}}
                 resizeMode="cover"
