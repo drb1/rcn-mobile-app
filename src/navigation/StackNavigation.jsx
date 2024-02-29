@@ -1,13 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {MembershipScreen} from '../screens/MembershipScreen';
-import {NewsScreen} from '../screens/NewsScreen';
-import {DonateScreen} from '../screens/DonateScreen';
-import HomeScreen from '../screens/HomepageScreen';
 import DetailsScreen from '../screens/NewsDetailsScreen';
-import Header from '../components/Header';
 import {BottomTab} from './BottomTabNavigation';
 import {Image} from 'react-native';
-import {OthersScreen} from '../screens/OthersScreen';
 import {AboutScreen} from '../screens/AboutScreen';
 import {ComitteeScreen} from '../screens/ComitteeScreen';
 import {ContactScreen} from '../screens/ContactScreen';
@@ -18,7 +12,6 @@ import {ImageScreen} from '../screens/ImageScreen';
 import {VideoScreen} from '../screens/VideoScreen';
 import {PrivacyScreen} from '../screens/PrivacyScreen';
 import {TransparencyScreen} from '../screens/TransparencyScreen';
-import ImageDetailsScreen from '../screens/ImageDetailScreen';
 
 const Stack = createNativeStackNavigator();
 const RightComponent = () => {
@@ -119,14 +112,6 @@ export function RootStack() {
       <Stack.Screen
         name="DetailsScreen"
         component={DetailsScreen}
-        options={{
-          headerShown: true,
-          headerRight: () => <RightComponent />,
-        }}
-      />
-      <Stack.Screen
-        name="ImageDetailsScreen"
-        component={ImageDetailsScreen}
         options={{
           headerShown: true,
           headerRight: () => <RightComponent />,
