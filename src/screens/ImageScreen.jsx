@@ -84,6 +84,7 @@ export function ImageScreen({navigation}) {
                   width: width * 0.463,
                   justifyContent: 'flex-end',
                 }}
+                imageStyle={{borderRadius:10}}
                 height={300}
                 width={width * 0.463}>
                 <Text
@@ -93,6 +94,8 @@ export function ImageScreen({navigation}) {
                     opacity: 0.8,
                     color: 'white',
                     padding: 10,
+                    borderBottomLeftRadius:10,
+                    borderBottomRightRadius:10
                   }}>
                   {item.title}
                 </Text>
