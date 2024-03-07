@@ -148,9 +148,11 @@ export function FeedbackScreen({navigation}) {
 
 const styles = StyleSheet.create({
   input: {
-    height: 60,
-    borderWidth: 2,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
     padding: 10,
-    borderColor:colors.backgroundColor
+    marginBottom: 10,
+    width: '100%',
   },
 });
