@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MembershipScreen} from '../screens/MembershipScreen';
 import {NewsScreen} from '../screens/NewsScreen';
 import {DonateScreen} from '../screens/DonateScreen';
 import {RootStack} from './StackNavigation';
@@ -10,6 +9,7 @@ import MemberIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DonateIcon from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from '../screens/HomepageScreen';
 import { OthersScreen } from '../screens/OthersScreen';
+import Membership from '../screens/MembershipScreen';
 const Tab = createBottomTabNavigator();
 
 export function BottomTab() {
@@ -39,7 +39,7 @@ export function BottomTab() {
       />
       <Tab.Screen
         name="Membership"
-        component={MembershipScreen}
+        component={Membership}
         options={{
          
           tabBarIcon: ({color, size,focused}) => (
