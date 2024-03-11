@@ -2,9 +2,10 @@ import {Dimensions, Text, View} from 'react-native';
 import WebView from 'react-native-webview';
 import Headingtext from './ScreenHeadline';
 const {width} = Dimensions.get('window');
+const {height} = Dimensions.get('window')
 export function Maps({navigation}) {
   return (
-    <View>
+    <View style={{height:height*0.4}}>
       <Headingtext heading={'Contact Us'} />
       <WebView
         originWhitelist={['*']}
@@ -16,7 +17,7 @@ export function Maps({navigation}) {
           </body>
       </html>`,
         }}
-        containerStyle={{width: width, height: 200}}
+        containerStyle={{width: width}}
         scrollEnabled={false}
         // style={{flex: 1}}
       />

@@ -13,9 +13,9 @@ export function PrivacyScreen({navigation}) {
        
         backgroundColor: colors.backgroundColor,
       }}>
-      <View style={{padding:10}}>
+      <View style={{padding:20}}>
         <Headingtext heading={'Privacy Policy'} />
-        <Text style={{textAlign:'justify'}}>
+        <Text style={{textAlign:'justify',lineHeight:25}}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos
           hic adipisci. Esse quas aspernatur perspiciatis laborum! Quos aliquid
           voluptatem nisi recusandae similique earum amet labore cum, facere

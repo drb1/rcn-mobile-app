@@ -13,6 +13,8 @@ import {
 import colors from '../lib/colors';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {useCallback, useState} from 'react';
+import Headingtext from '../components/ScreenHeadline';
+const {height} = Dimensions.get('window')
 const images = [
   {
     title: 'Image 1',
@@ -74,11 +76,12 @@ export function VideoScreen({navigation}) {
            gap: 10,
           //  width: width * 1
         }}>
+          <Headingtext heading={'Videos'} />
         {images.map((item, index) => {
           return (
             <View key={index} style={{backgroundColor:'white',padding:10,borderRadius:10}}>
               <YoutubePlayer
-                height={200}
+                height={height *0.3}
                 play={playing}
                 videoId={'iee2TATGMyI'}
                 onChangeState={onStateChange}

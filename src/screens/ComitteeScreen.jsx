@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import colors from '../lib/colors';
+import Headingtext from '../components/ScreenHeadline';
 const images = [
   {
     title: 'Image 1',
@@ -84,6 +85,7 @@ export function ComitteeScreen({navigation}) {
         backgroundColor: colors.backgroundColor,
         flex: 1,
       }}>
+         <Headingtext heading={'Comittee Members'} />
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -91,6 +93,7 @@ export function ComitteeScreen({navigation}) {
           flexWrap: 'wrap',
           margin: 10,
           gap: 10,
+          justifyContent:'center',alignItems:'center'
         }}>
         {images.map((item, index) => {
           return (

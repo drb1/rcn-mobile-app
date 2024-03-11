@@ -13,6 +13,7 @@ import {
 import colors from '../lib/colors';
 import {useState} from 'react';
 import ImageView from 'react-native-image-viewing';
+import Headingtext from '../components/ScreenHeadline';
 
 const images = [
   {
@@ -56,6 +57,7 @@ export function ImageScreen({navigation}) {
         backgroundColor: colors.backgroundColor,
         flex: 1,
       }}>
+         <Headingtext heading={'Images'} />
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -63,6 +65,8 @@ export function ImageScreen({navigation}) {
           flexWrap: 'wrap',
           margin: 10,
           gap: 10,
+          alignItems:'center',
+          justifyContent:'center'
           //  width: width * 1
         }}>
         {images.map((item, index) => {

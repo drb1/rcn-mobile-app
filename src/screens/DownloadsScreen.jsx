@@ -11,6 +11,7 @@ import {
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import DownloadIcon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../lib/colors';
+import Headingtext from '../components/ScreenHeadline';
 
 const items = [
   {
@@ -63,8 +64,11 @@ export function DownloadScreen({navigation}) {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:colors.backgroundColor
+        backgroundColor:colors.backgroundColor,
+     
       }}>
+                <Headingtext heading={'Downloads'} />
+
       {items.map((item, index) => {
         return (
           <View
@@ -75,8 +79,9 @@ export function DownloadScreen({navigation}) {
               alignItems: 'center',
               gap: 10,
               backgroundColor: 'white',
-              margin:10,
-              borderRadius:10
+              margin:20,
+              borderRadius:10,
+              padding:20
             }}>
             <View style={{flex: 1,}}>
               <Image

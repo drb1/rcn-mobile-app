@@ -48,8 +48,9 @@ export function OthersScreen() {
   return (
     <ScrollView
       contentContainerStyle={{
-       // flex: 1,
+       flex: 1,
         backgroundColor: colors.backgroundColor,
+        justifyContent:'center'
       }}>
       <View style={{padding: 10}}>
         <Pressable onPress={onPressList('1', 'About')}>

@@ -6,8 +6,8 @@ const Location = () => {
     <View
       style={{
         flex: 2,
-        flexGrow: 4,
-        backgroundColor: 'gray',
+        flexGrow: 3.5,
+        backgroundColor: '#D3D3D3',
         borderRadius: 10,
         margin: 20,
       }}>
@@ -25,8 +25,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold'}}>Location</Text>
-          <Text>
+          <Text style={{fontWeight: 'bold',fontSize:25}}>Location</Text>
+          <Text style={{color:'blue',fontSize:16}}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
             dolores!
           </Text>
@@ -45,8 +45,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold'}}>Call Us</Text>
-          <Text>
+          <Text style={{fontWeight: 'bold',fontSize:25}}>Call Us</Text>
+          <Text style={{color:'blue',fontSize:16}}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
             dolores!
           </Text>
@@ -66,8 +66,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold'}}>Mail Us</Text>
-          <Text>
+          <Text style={{fontWeight: 'bold',fontSize:25}}>Mail Us</Text>
+          <Text style={{color:'blue',fontSize:16}}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
             dolores!
           </Text>

@@ -18,8 +18,8 @@ export function ContactScreen({navigation}) {
   return (
     <ScrollView
       contentContainerStyle={{
-       // flex: 1,
-       // flexGrow:1,
+        flex: 1,
+       flexGrow:1,
         backgroundColor: colors.backgroundColor,
       }}>
       <Maps />
