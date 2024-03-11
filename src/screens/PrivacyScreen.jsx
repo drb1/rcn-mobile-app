@@ -2,6 +2,7 @@ import {useTranslation} from 'react-i18next';
 import {Text, View, Button, useColorScheme} from 'react-native';
 import {ScrollView} from 'react-native';
 import colors from '../lib/colors';
+import Headingtext from '../components/ScreenHeadline';
 
 export function PrivacyScreen({navigation}) {
   const {t} = useTranslation();
@@ -13,7 +14,7 @@ export function PrivacyScreen({navigation}) {
         backgroundColor: colors.backgroundColor,
       }}>
       <View style={{padding:10}}>
-        <Text style={{fontWeight:'bold',fontSize:50,textAlign:'center'}}>Privacy Policy</Text>
+        <Headingtext heading={'Privacy Policy'} />
         <Text style={{textAlign:'justify'}}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos
           hic adipisci. Esse quas aspernatur perspiciatis laborum! Quos aliquid
