@@ -12,7 +12,7 @@ export default function Membership() {
   const onSubmit = data => console.log(data);
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white', gap: 8}}>
+    <View style={{flex: 1, backgroundColor: colors.backgroundColor, gap: 8}}>
      <MembershipForm />
     </View>
   );

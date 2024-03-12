@@ -43,30 +43,30 @@ const images = [
 ];
 
 const {width} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 export function ImageScreen({navigation}) {
   const {t} = useTranslation();
   const [visible, setIsVisible] = useState(false);
 
   const onImagePress = id => () => {
     setIsVisible(true);
-   
   };
   return (
     <View
       style={{
         backgroundColor: colors.backgroundColor,
         flex: 1,
+        padding: 10,
       }}>
-         <Headingtext heading={'Images'} />
+      <Headingtext heading={'Images'} />
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
-          display: 'flex',
           flexWrap: 'wrap',
           margin: 10,
           gap: 10,
-          alignItems:'center',
-          justifyContent:'center'
+          alignItems: 'center',
+          justifyContent: 'center',
           //  width: width * 1
         }}>
         {images.map((item, index) => {
@@ -83,14 +83,12 @@ export function ImageScreen({navigation}) {
                 resizeMode="cover"
                 style={{
                   borderRadius: 10,
-                  height: 300,
-                  flex: 1,
-                  width: width * 0.463,
+                  height: height * 0.3,
+                  // flex: 1,
+                  width: width * 0.43,
                   justifyContent: 'flex-end',
                 }}
-                imageStyle={{borderRadius:10}}
-                height={300}
-                width={width * 0.463}>
+                imageStyle={{borderRadius: 10, height: height * 0.3}}>
                 <Text
                   style={{
                     textAlign: 'center',
@@ -98,8 +96,8 @@ export function ImageScreen({navigation}) {
                     opacity: 0.8,
                     color: 'white',
                     padding: 10,
-                    borderBottomLeftRadius:10,
-                    borderBottomRightRadius:10
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
                   }}>
                   {item.title}
                 </Text>
