@@ -85,7 +85,7 @@ export function ComitteeScreen({navigation}) {
         backgroundColor: colors.backgroundColor,
         flex: 1,
       }}>
-         <Headingtext heading={'Comittee Members'} />
+      <Headingtext heading={'Comittee Members'} />
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -93,11 +93,14 @@ export function ComitteeScreen({navigation}) {
           flexWrap: 'wrap',
           margin: 10,
           gap: 10,
-          justifyContent:'center',alignItems:'center'
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
         {images.map((item, index) => {
           return (
-            <View key={index} style={{ height: height * 0.27, width: width * 0.29,}}>
+            <View
+              key={index}
+              style={{height: height * 0.27, width: width * 0.29}}>
               <Image
                 source={require('../assests/news.webp')}
                 // height={50}
@@ -113,7 +116,7 @@ export function ComitteeScreen({navigation}) {
                 }}
                 resizeMode="cover"
               />
-              <View style={{alignItems:'center',paddingVertical:10}}>
+              <View style={{alignItems: 'center', paddingVertical: 10}}>
                 <Text>Member name</Text>
                 <Text>Member post</Text>
                 <Text>Member phoneNumber</Text>

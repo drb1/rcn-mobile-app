@@ -7,6 +7,8 @@ import {
   Image,
   Pressable,
   ScrollView,
+  StyleSheet,
+  Platform,
 } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import DownloadIcon from 'react-native-vector-icons/FontAwesome5';
@@ -14,6 +16,26 @@ import colors from '../lib/colors';
 import Headingtext from '../components/ScreenHeadline';
 
 const items = [
+  {
+    id: 1,
+    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
+    title: 'Transparency 1',
+  },
+  {
+    id: 2,
+    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
+    title: 'Transparency 2',
+  },
+  {
+    id: 3,
+    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
+    title: 'Transparency 3',
+  },
+  {
+    id: 4,
+    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
+    title: 'Transparency 4',
+  },
   {
     id: 1,
     url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
@@ -60,12 +82,9 @@ export function TransparencyScreen({navigation}) {
 
   return (
     <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.backgroundColor,
-      }}>
+    contentContainerStyle={
+      Platform.OS === 'android' ? androidStyle.container : iosStyle.container
+    }>
       <Headingtext heading={'Transparency'} />
 
       {items.map((item, index) => {
@@ -85,12 +104,12 @@ export function TransparencyScreen({navigation}) {
             <View style={{flex: 1}}>
               <Image
                 source={require('../assests/rcn-logo-red.webp')}
-                height={40}
-                width={40}
+                style={{height:50,width:50}}
+               
                 alt="download image"
               />
             </View>
-            <View style={{flex: 2, alignItems: 'center'}}>
+            <View style={{flex: 4, alignItems: 'center'}}>
               <Text
                 style={{
                   fontWeight: 'bold',
@@ -116,3 +135,18 @@ export function TransparencyScreen({navigation}) {
     </ScrollView>
   );
 }
+
+const iosStyle = StyleSheet.create({
+  container: {
+    flexGrow:1,
+    backgroundColor: colors.backgroundColor,
+  },
+});
+const androidStyle = StyleSheet.create({
+  container: {
+ //  flex: 1,
+   flexGrow:1,
+    backgroundColor: colors.backgroundColor,
+   // justifyContent: 'center',
+  },
+});

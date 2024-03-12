@@ -7,6 +7,8 @@ import {
   useColorScheme,
   ScrollView,
   Pressable,
+  StyleSheet,
+  Platform,
 } from 'react-native';
 import {Avatar, Divider, ListItem} from '@rneui/themed';
 import {useState} from 'react';
@@ -28,13 +30,13 @@ const members = [
     name: 'Comittee Members',
     avatar_url:
       'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      screen:'Comittee'
+    screen: 'Comittee',
   },
   {
     name: 'Executive Members',
     avatar_url:
       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      screen:'Executive'
+    screen: 'Executive',
   },
 ];
 export function OthersScreen() {
@@ -47,14 +49,12 @@ export function OthersScreen() {
   };
   return (
     <ScrollView
-      contentContainerStyle={{
-       flex: 1,
-        backgroundColor: colors.backgroundColor,
-        justifyContent:'center'
-      }}>
+      contentContainerStyle={
+        Platform.OS === 'android' ? androidStyle.container : iosStyle.container
+      }>
       <View style={{padding: 10}}>
         <Pressable onPress={onPressList('1', 'About')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>About Us</Text>
             </ListItem.Content>
@@ -63,7 +63,7 @@ export function OthersScreen() {
         </Pressable>
         <Divider />
         <Pressable onPress={onPressList('1', 'Transparency')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>
                 Transparency
@@ -74,7 +74,7 @@ export function OthersScreen() {
         </Pressable>
         <Divider />
         <Pressable onPress={onPressList('1', 'Download')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>Downloads</Text>
             </ListItem.Content>
@@ -83,7 +83,7 @@ export function OthersScreen() {
         </Pressable>
         <Divider />
         <ListItem.Accordion
-        containerStyle={{padding:25}}
+          containerStyle={{padding: 25}}
           content={
             <View style={{display: 'flex', flex: 1}}>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>
@@ -108,7 +108,7 @@ export function OthersScreen() {
         </ListItem.Accordion>
         <Divider />
         <ListItem.Accordion
-        containerStyle={{padding:25}}
+          containerStyle={{padding: 25}}
           content={
             <View style={{display: 'flex', flex: 1}}>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>Members</Text>
@@ -131,7 +131,7 @@ export function OthersScreen() {
         </ListItem.Accordion>
         <Divider />
         <Pressable onPress={onPressList('1', 'Feedback')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>Feedback</Text>
             </ListItem.Content>
@@ -140,7 +140,7 @@ export function OthersScreen() {
         </Pressable>
         <Divider />
         <Pressable onPress={onPressList('1', 'Contact')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>Contact Us</Text>
             </ListItem.Content>
@@ -149,7 +149,7 @@ export function OthersScreen() {
         </Pressable>
         <Divider />
         <Pressable onPress={onPressList('1', 'Privacy')}>
-          <ListItem containerStyle={{padding:25}}>
+          <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>
               <Text style={{fontWeight: 'bold', fontSize: 20}}>
                 Privacy Policy
@@ -162,3 +162,15 @@ export function OthersScreen() {
     </ScrollView>
   );
 }
+const iosStyle = StyleSheet.create({
+  container: {
+    backgroundColor: colors.backgroundColor,
+  },
+});
+const androidStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundColor,
+    justifyContent: 'center',
+  },
+});
