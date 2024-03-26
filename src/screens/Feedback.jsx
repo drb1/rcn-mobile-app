@@ -15,9 +15,11 @@ import {
 import {Input, Icon} from '@rneui/themed';
 import {useState} from 'react';
 import colors from '../lib/colors';
+import {useCreateFeedbackMutation} from '../hooks/useMutateData';
 
 export function FeedbackScreen({navigation}) {
   const {t} = useTranslation();
+  const createMutation = useCreateFeedbackMutation();
   const [feedback, setFeedback] = useState({
     fullName: '',
     email: '',
@@ -47,10 +49,20 @@ export function FeedbackScreen({navigation}) {
 
     if (Object.keys(validationErrors).length === 0) {
       // Do something with the input values
-      Alert.alert(
-        'Form Data',
-        `Name: ${feedback.fullName}\nEmail: ${feedback.email}`,
-      );
+      let data;
+      data = {
+        fullName: feedback.fullName,
+        email: feedback.email,
+        phoneNumber: feedback.phoneNumber,
+        message: feedback.message,
+      };
+      createMutation.mutate(data, {
+        onSuccess: res => {
+          if (res?.data.success) {
+            Alert.alert('Form Data', `Successfully Submitted`);
+          }
+        },
+      });
     } else {
       // Display error messages next to the input fields
       setErrors(validationErrors);
@@ -126,7 +138,7 @@ export function FeedbackScreen({navigation}) {
             )}
             <Text>Message *</Text>
             <TextInput
-            style={styles.input}
+              style={styles.input}
               onChangeText={text => handleInputChange('message', text)}
               placeholder="Message"
               keyboardType="ascii-capable"
@@ -136,9 +148,8 @@ export function FeedbackScreen({navigation}) {
             {errors.message !== '' && (
               <Text style={{color: 'red'}}>{errors.message}</Text>
             )}
-           
-              <Button title="Submit" onPress={handleButtonPress} />
-          
+
+            <Button title="Submit" onPress={handleButtonPress} />
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

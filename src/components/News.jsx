@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -13,39 +13,63 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
+import {useNewsData} from '../hooks/useQueryData';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 const App = () => {
   const navigation = useNavigation();
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useNewsData();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
 
-  const getItem = (_data, index) => ({
-    id: Math.random().toString(12).substring(0),
-    title: `News ${index + 1}`,
-    subTitle:
-      'Lorem Impums Lorem Impums Lorem Impums Lorem Impums Lorem Impums .....',
-    date: '2080-08-07',
-  });
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
 
-  const getItemCount = _data => 50;
-  const navigateToBlogDetails = blogId => {
-    navigation.navigate('DetailsScreen', {blogId});
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
+
+  const getItem = (data, index) => data[index];
+
+  const getItemCount = _data => data.length;
+  const navigateToBlogDetails = id => {
+    //console.log('blog id',blogId)
+    navigation.navigate('DetailsScreen', {id});
   };
-
-  const Item = ({title, subTitle, date}) => (
-    <Pressable onPress={() => navigateToBlogDetails(title)}>
+  const renderItem = ({item}) => (
+    <Pressable onPress={() => navigateToBlogDetails(item.url)}>
       <View style={styles.item}>
         <View style={styles.newsWrapper}>
-          <Image
-            source={require('../assests/news.webp')}
+          <Image  
+            source={{
+              uri: item.image,
+            }}
             style={styles.imageStyle}
             alt="news image"
             resizeMode="cover"
           />
-
-         
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subTitle}>{subTitle}</Text>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.subTitle}>{item.subTitle}</Text>
+          <Text style={styles.date}>{item.createdAt}</Text>
         </View>
       </View>
     </Pressable>
@@ -53,10 +77,9 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <VirtualizedList
+        data={data}
         initialNumToRender={4}
-        renderItem={({item}) => (
-          <Item title={item.title} subTitle={item.subTitle} date={item.date} />
-        )}
+        renderItem={renderItem}
         keyExtractor={item => item.id}
         getItemCount={getItemCount}
         getItem={getItem}
@@ -101,7 +124,7 @@ const styles = StyleSheet.create({
     objectFit: 'cover',
   },
   newsWrapper: {
-   // display: 'flex',
+    // display: 'flex',
     //flexDirection: 'row',
     // alignItems: 'center',
     gap: 4,

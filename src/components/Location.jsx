@@ -1,7 +1,7 @@
 import {Text, View, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const Location = () => {
+const Location = ({email, phoneNumber, location}) => {
   return (
     <View
       style={{
@@ -12,7 +12,9 @@ const Location = () => {
         margin: 20,
       }}>
       <View
-      onPress={()=>{Linking.openURL('tel:119');}}
+        onPress={() => {
+          Linking.openURL('tel:119');
+        }}
         style={{
           flexDirection: 'row',
           gap: 10,
@@ -25,11 +27,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold',fontSize:25}}>Location</Text>
-          <Text style={{color:'blue',fontSize:16}}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
-            dolores!
-          </Text>
+          <Text style={{fontWeight: 'bold', fontSize: 25}}>Location</Text>
+          <Text style={{color: 'blue', fontSize: 16}}>{location}</Text>
         </View>
       </View>
       <View
@@ -45,11 +44,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold',fontSize:25}}>Call Us</Text>
-          <Text style={{color:'blue',fontSize:16}}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
-            dolores!
-          </Text>
+          <Text style={{fontWeight: 'bold', fontSize: 25}}>Call Us</Text>
+          <Text style={{color: 'blue', fontSize: 16}}>{phoneNumber}</Text>
         </View>
       </View>
       <View
@@ -66,11 +62,8 @@ const Location = () => {
           </Text>
         </View>
         <View style={{flex: 5}}>
-          <Text style={{fontWeight: 'bold',fontSize:25}}>Mail Us</Text>
-          <Text style={{color:'blue',fontSize:16}}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
-            dolores!
-          </Text>
+          <Text style={{fontWeight: 'bold', fontSize: 25}}>Mail Us</Text>
+          <Text style={{color: 'blue', fontSize: 16}}>{email}</Text>
         </View>
       </View>
     </View>

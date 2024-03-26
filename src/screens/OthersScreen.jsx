@@ -62,6 +62,15 @@ export function OthersScreen() {
           </ListItem>
         </Pressable>
         <Divider />
+        <Pressable onPress={onPressList('2', 'MissionVision')}>
+          <ListItem containerStyle={{padding: 25}}>
+            <ListItem.Content>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>Mission And Vision</Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Pressable>
+        <Divider />
         <Pressable onPress={onPressList('1', 'Transparency')}>
           <ListItem containerStyle={{padding: 25}}>
             <ListItem.Content>

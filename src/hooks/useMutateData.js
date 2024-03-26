@@ -1,15 +1,73 @@
-import {useQuery} from '@tanstack/react-query';
-import useAxiosApi from './useAxiosApi';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxiosApi from "./useAxiosApi";
 
-const useQueryData = (queryKey, path, params = {}, refetch = false) => {
-  const axiosPrivate = useAxiosApi();
-  // console.log("axios private ", axiosPrivate);
-  return useQuery({
-    queryKey,
-    refetchOnMount: refetch,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 30,
-    queryFn: () => axiosPrivate.get(path, {params}).then(res => res.data),
+
+ 
+
+const useMutateData = (
+
+  path,
+
+  method = "POST",
+
+  contentType = "application/json"
+
+) => {
+
+  const queryClient = useQueryClient();
+
+  const axiosInstance = useAxiosApi();
+
+ 
+
+  return useMutation({
+
+    mutationFn: async (data) => {
+
+      const response = await axiosInstance({
+
+        url: path,
+
+        method,
+
+        data,
+
+        headers: {
+
+          "Content-Type": contentType, // Use multipart/form-data for file uploads
+
+          "Access-Control-Allow-Origin": "*",
+
+        },
+
+      });
+
+ 
+
+      // Update the cache with the data from the response
+
+      queryClient.invalidateQueries();
+
+      // console.log("Mutate data", response);
+
+      return response;
+
+    },
+
   });
+
 };
 
+ 
+
+// feedback
+
+export const useCreateFeedbackMutation = () =>
+
+  useMutateData("/volunteerform/create", "POST");
+
+//Members
+
+export const useCreateMemberMutation = () =>
+
+  useMutateData("/membershipform", "POST", "multipart/form-data");

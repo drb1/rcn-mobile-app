@@ -14,51 +14,42 @@ import ReactNativeBlobUtil from 'react-native-blob-util';
 import DownloadIcon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../lib/colors';
 import Headingtext from '../components/ScreenHeadline';
+import {useESData} from '../hooks/useQueryData';
+import {useEffect, useState} from 'react';
+import Spinner from '../components/Spinner';
+import { isAxiosError } from 'axios';
 
-const items = [
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 2',
-  },
-  {
-    id: 3,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 3',
-  },
-  {
-    id: 4,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 4',
-  },
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 2',
-  },
-  {
-    id: 3,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 3',
-  },
-  {
-    id: 4,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Transparency 4',
-  },
-];
 export function TransparencyScreen({navigation}) {
   const {t} = useTranslation();
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useESData();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
+
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
+
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
   const onDownloadClick = url => () => {
     ReactNativeBlobUtil.config({
       addAndroidDownloads: {
@@ -80,14 +71,14 @@ export function TransparencyScreen({navigation}) {
       });
   };
 
-  return (
+  return dataReady ? (
     <ScrollView
-    contentContainerStyle={
-      Platform.OS === 'android' ? androidStyle.container : iosStyle.container
-    }>
+      contentContainerStyle={
+        Platform.OS === 'android' ? androidStyle.container : iosStyle.container
+      }>
       <Headingtext heading={'Transparency'} />
 
-      {items.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <View
             key={index}
@@ -104,8 +95,7 @@ export function TransparencyScreen({navigation}) {
             <View style={{flex: 1}}>
               <Image
                 source={require('../assests/rcn-logo-red.webp')}
-                style={{height:50,width:50}}
-               
+                style={{height: 50, width: 50}}
                 alt="download image"
               />
             </View>
@@ -120,7 +110,7 @@ export function TransparencyScreen({navigation}) {
               </Text>
             </View>
             <View style={{flex: 1, alignItems: 'center'}}>
-              <Pressable onPress={onDownloadClick(item.url)}>
+              <Pressable onPress={onDownloadClick(item.document)}>
                 <DownloadIcon
                   name="file-download"
                   color={'green'}
@@ -133,20 +123,22 @@ export function TransparencyScreen({navigation}) {
         );
       })}
     </ScrollView>
+  ) : (
+    <Spinner />
   );
 }
 
 const iosStyle = StyleSheet.create({
   container: {
-    flexGrow:1,
+    flexGrow: 1,
     backgroundColor: colors.backgroundColor,
   },
 });
 const androidStyle = StyleSheet.create({
   container: {
- //  flex: 1,
-   flexGrow:1,
+    //  flex: 1,
+    flexGrow: 1,
     backgroundColor: colors.backgroundColor,
-   // justifyContent: 'center',
+    // justifyContent: 'center',
   },
 });

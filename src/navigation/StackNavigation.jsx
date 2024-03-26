@@ -12,6 +12,7 @@ import {ImageScreen} from '../screens/ImageScreen';
 import {VideoScreen} from '../screens/VideoScreen';
 import {PrivacyScreen} from '../screens/PrivacyScreen';
 import {TransparencyScreen} from '../screens/TransparencyScreen';
+import { MissionScreen } from '../screens/MissionandVision';
 
 const Stack = createNativeStackNavigator();
 const RightComponent = () => {
@@ -32,6 +33,14 @@ export function RootStack() {
       <Stack.Screen
         name="About"
         component={AboutScreen}
+        options={{
+          headerShown: true,
+          headerRight: () => <RightComponent />,
+        }}
+      />
+      <Stack.Screen
+        name="MissionVision"
+        component={MissionScreen}
         options={{
           headerShown: true,
           headerRight: () => <RightComponent />,

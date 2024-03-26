@@ -12,46 +12,46 @@ import {
 } from 'react-native';
 import colors from '../lib/colors';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import Headingtext from '../components/ScreenHeadline';
-const {height} = Dimensions.get('window')
-const images = [
-  {
-    title: 'Image 1',
-    uri: 'https://images.unsplash.com/photo-1571501679680-de32f1e7aad4',
-    date:'2080-02-02'
-  },
-  {
-    title: 'Image 2',
-    uri: 'https://images.unsplash.com/photo-1573273787173-0eb81a833b34',
-    date:'2080-02-02'
-  },
-  {
-    title: 'Image 3',
-    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
-    date:'2080-02-02'
-  },
-  {
-    title: 'Image 4',
-    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
-    date:'2080-02-02'
-  },
-  {
-    title: 'Image 5',
-    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
-    date:'2080-02-02'
-  },
-  {
-    title: 'Image 6',
-    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
-    date:'2080-02-02'
-  },
-];
+import {useHomeVideo, useMVData} from '../hooks/useQueryData';
+import YoutubePlayers from '../components/YoutubePlayers';
+import Spinner from '../components/Spinner';
+const {height} = Dimensions.get('window');
 
 const {width} = Dimensions.get('window');
 export function VideoScreen({navigation}) {
   const {t} = useTranslation();
   const [playing, setPlaying] = useState(false);
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useHomeVideo();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
+
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
+
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
   const onStateChange = useCallback(state => {
     if (state === 'ended') {
       setPlaying(false);
@@ -64,7 +64,8 @@ export function VideoScreen({navigation}) {
   const onImagePress = id => () => {
     navigation.navigate('ImageDetailsScreen', {blogId: id});
   };
-  return (
+
+  return dataReady ? (
     <View
       style={{
         backgroundColor: colors.backgroundColor,
@@ -73,31 +74,38 @@ export function VideoScreen({navigation}) {
       <ScrollView
         contentContainerStyle={{
           margin: 10,
-           gap: 10,
+          gap: 10,
           //  width: width * 1
         }}>
-          <Headingtext heading={'Videos'} />
-        {images.map((item, index) => {
+        <Headingtext heading={'Videos'} />
+        {data.map((item, index) => {
           return (
-            <View key={index} style={{backgroundColor:'white',padding:10,borderRadius:10}}>
-              <YoutubePlayer
-                height={height *0.3}
+            <View
+              key={index}
+              style={{backgroundColor: 'white', padding: 10, borderRadius: 10}}>
+              <YoutubePlayers
+                height={height * 0.3}
                 play={playing}
-                videoId={'iee2TATGMyI'}
+                videoId={item.link}
                 onChangeState={onStateChange}
-                
               />
 
-              <Text style={{fontWeight:'bold',fontSize:20,marginVertical:5,color:colors.textColor}}>{item.title}</Text>
-              <Text style={{fontWeight:'bold'}}>{item.date}</Text>
-              {/*   <Button
-                title={playing ? 'pause' : 'play'}
-                onPress={togglePlaying}
-              /> */}
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  marginVertical: 5,
+                  color: colors.textColor,
+                }}>
+                {item.title}
+              </Text>
+              <Text style={{fontWeight: 'bold'}}>{item.date}</Text>
             </View>
           );
         })}
       </ScrollView>
     </View>
+  ) : (
+    <Spinner />
   );
 }

@@ -11,9 +11,12 @@ import {
   ImageBackground,
 } from 'react-native';
 import colors from '../lib/colors';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import ImageView from 'react-native-image-viewing';
 import Headingtext from '../components/ScreenHeadline';
+import {isAxiosError} from 'axios';
+import {useMediaImageData} from '../hooks/useQueryData';
+import Spinner from '../components/Spinner';
 
 const images = [
   {
@@ -47,11 +50,39 @@ const {height} = Dimensions.get('window');
 export function ImageScreen({navigation}) {
   const {t} = useTranslation();
   const [visible, setIsVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useMediaImageData();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
 
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
+
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
   const onImagePress = id => () => {
     setIsVisible(true);
   };
-  return (
+  return dataReady ? (
     <View
       style={{
         backgroundColor: colors.backgroundColor,
@@ -69,17 +100,17 @@ export function ImageScreen({navigation}) {
           justifyContent: 'center',
           //  width: width * 1
         }}>
-        {images.map((item, index) => {
+        {data.map((item, index) => {
           return (
             <Pressable key={index} onPress={onImagePress(item.title)}>
               <ImageView
-                images={images}
+                images={item.image}
                 imageIndex={0}
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
               />
               <ImageBackground
-                source={{uri: item.uri}}
+                source={{uri: item.image}}
                 resizeMode="cover"
                 style={{
                   borderRadius: 10,
@@ -99,20 +130,15 @@ export function ImageScreen({navigation}) {
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
                   }}>
-                  {item.title}
+                  {item.topic}
                 </Text>
               </ImageBackground>
-              {/*  <Image
-                source={{uri: item.uri}}
-                height={300}
-                width={width * 0.463}
-                alt="image"
-                style={{borderRadius:10}}
-              /> */}
             </Pressable>
           );
         })}
       </ScrollView>
     </View>
+  ) : (
+    <Spinner />
   );
 }

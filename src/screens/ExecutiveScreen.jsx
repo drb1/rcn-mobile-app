@@ -11,81 +11,50 @@ import {
 } from 'react-native';
 import colors from '../lib/colors';
 import Headingtext from '../components/ScreenHeadline';
-const images = [
-  {
-    title: 'Image 1',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 2',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-  {
-    title: 'Image 3',
-    uri: '../assests/news.webp',
-  },
-];
+import { useEffect, useState } from 'react';
+import { useEMData } from '../hooks/useQueryData';
+
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 
 export function ExecutiveScreen({navigation}) {
   const {t} = useTranslation();
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useEMData();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
 
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
+
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
   return (
     <View
       style={{
         backgroundColor: colors.backgroundColor,
         flex: 1,
       }}>
-        <Headingtext heading={'Executive Members'} />
+      <Headingtext heading={'Executive Members'} />
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -93,32 +62,33 @@ export function ExecutiveScreen({navigation}) {
           flexWrap: 'wrap',
           margin: 10,
           gap: 10,
-          alignItems:'center',
-          justifyContent:'center'
-
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        {images.map((item, index) => {
+        {data.map((item, index) => {
           return (
-            <View key={index} style={{ height: height * 0.27, width: width * 0.29,}}>
+            <View
+              key={index}
+              style={{height: height * 0.27, width: width * 0.45,backgroundColor:'white',borderRadius:10}}>
               <Image
-                source={require('../assests/news.webp')}
-                // height={50}
-                //  width={width * 0.163}
+               source={{
+                uri: item.image,
+              }}
                 alt="image"
                 // style={{borderRadius: 10}}
                 style={{
                   borderRadius: 10,
-                  width: width * 0.29,
+                  width: width * 0.45,
                   flex: 1,
                   height: height * 0.27,
                   justifyContent: 'flex-end',
                 }}
                 resizeMode="cover"
               />
-              <View style={{alignItems:'center',paddingVertical:10}}>
-                <Text>Member name</Text>
-                <Text>Member post</Text>
-                <Text>Member phoneNumber</Text>
+              <View style={{padding: 10}}>
+                <Text>{item.name}</Text>
+                <Text>{item.designation}</Text>
+                <Text>{item.phoneNumber}</Text>
               </View>
             </View>
           );

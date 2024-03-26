@@ -14,62 +14,42 @@ import ReactNativeBlobUtil from 'react-native-blob-util';
 import DownloadIcon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../lib/colors';
 import Headingtext from '../components/ScreenHeadline';
+import {useDCData, useESData} from '../hooks/useQueryData';
+import {useEffect, useState} from 'react';
+import Spinner from '../components/Spinner';
+import { isAxiosError } from 'axios';
 
-const items = [
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 2',
-  },
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 2',
-  },
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 2',
-  },
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 2',
-  },
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 1',
-  },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/id/637696304/photo/patan.jpg?s=1024x1024&w=is&k=20&c=JZoUa-ouoJKnDXSaCbkqZtLQxR0KVdmvE4iz7kebTOo=',
-    title: 'Donwload 2',
-  },
- 
-];
 export function DownloadScreen({navigation}) {
   const {t} = useTranslation();
+  const [data, setData] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
+  const dataFetch = useDCData();
+  console.log('data list', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dataFetch.refetch();
+        // message.success("Category List Successfully refetched.");
+
+        if (dataFetch.data && dataFetch.data.data) {
+          setData(dataFetch.data.data);
+          setDataReady(true);
+        } else {
+          // message.error("Error while fetching data");
+        }
+      } catch (error) {
+        let errorMessage = '';
+        if (isAxiosError(error)) {
+          errorMessage = error?.response?.data || 'Something went wrong';
+        }
+        // message.error(errorMessage);
+      }
+    };
+
+    if (dataFetch.data) {
+      fetchData();
+    }
+  }, [dataFetch.data]);
   const onDownloadClick = url => () => {
     ReactNativeBlobUtil.config({
       addAndroidDownloads: {
@@ -91,14 +71,14 @@ export function DownloadScreen({navigation}) {
       });
   };
 
-  return (
+  return dataReady ? (
     <ScrollView
       contentContainerStyle={
         Platform.OS === 'android' ? androidStyle.container : iosStyle.container
       }>
-      <Headingtext heading={'Downloads'} />
+      <Headingtext heading={'Download'} />
 
-      {items.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <View
             key={index}
@@ -130,7 +110,7 @@ export function DownloadScreen({navigation}) {
               </Text>
             </View>
             <View style={{flex: 1, alignItems: 'center'}}>
-              <Pressable onPress={onDownloadClick(item.url)}>
+              <Pressable onPress={onDownloadClick(item.document)}>
                 <DownloadIcon
                   name="file-download"
                   color={'green'}
@@ -143,19 +123,22 @@ export function DownloadScreen({navigation}) {
         );
       })}
     </ScrollView>
+  ) : (
+    <Spinner />
   );
 }
+
 const iosStyle = StyleSheet.create({
   container: {
-    flexGrow:1,
+    flexGrow: 1,
     backgroundColor: colors.backgroundColor,
   },
 });
 const androidStyle = StyleSheet.create({
   container: {
- //  flex: 1,
-   flexGrow:1,
+    //  flex: 1,
+    flexGrow: 1,
     backgroundColor: colors.backgroundColor,
-   // justifyContent: 'center',
+    // justifyContent: 'center',
   },
 });

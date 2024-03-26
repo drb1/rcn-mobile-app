@@ -1,20 +1,29 @@
 import {useTranslation} from 'react-i18next';
-import {Text, View, Button, useWindowDimensions, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  useColorScheme,
+  useWindowDimensions,
+} from 'react-native';
 import {ScrollView} from 'react-native';
 import colors from '../lib/colors';
 import Headingtext from '../components/ScreenHeadline';
-import {usePrivacyPolicyData} from '../hooks/useQueryData';
-import {isAxiosError} from 'axios';
 import {useEffect, useState} from 'react';
-import RenderHtml from 'react-native-render-html';
-export function PrivacyScreen({navigation}) {
+import Spinner from '../components/Spinner';
+import {useAboutData, useMVData} from '../hooks/useQueryData';
+import RenderHTML from 'react-native-render-html';
+import { isAxiosError } from 'axios';
+
+export function MissionScreen({navigation}) {
   const {t} = useTranslation();
   const {width} = useWindowDimensions();
-
   const [data, setData] = useState([]);
+
   const [dataReady, setDataReady] = useState(false);
-  const dataFetch = usePrivacyPolicyData();
+  const dataFetch = useMVData();
   console.log('data list', data);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,20 +52,19 @@ export function PrivacyScreen({navigation}) {
   const source = {
     html: data?.description,
   };
-
   return dataReady ? (
     <ScrollView
       contentContainerStyle={{
         backgroundColor: colors.backgroundColor,
+        flexGrow:1
+        //flex: 1,
       }}>
       <View style={{padding: 20}}>
-        <Headingtext heading={data?.title} />
-        <RenderHtml contentWidth={width} source={source} />
+        <Headingtext heading={'Mission And Vision'} />
+        <RenderHTML contentWidth={width} source={source} />
       </View>
     </ScrollView>
   ) : (
-    <View style={{flexGrow: 1, justifyContent: 'center', alignItems: 'center',  backgroundColor: colors.backgroundColor,}}>
-      <ActivityIndicator />
-    </View>
+    <Spinner />
   );
 }
