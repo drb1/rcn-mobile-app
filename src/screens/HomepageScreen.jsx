@@ -20,12 +20,12 @@ const HomeScreen = () => {
         <Tab.Item
           title="News"
           titleStyle={{fontSize: 12}}
-          icon={{name: 'timer', type: 'ionicon', color: 'red'}}
+          icon={{name: 'news', type: 'entypo', color: 'red'}}
         />
         <Tab.Item
           title="Notices"
           titleStyle={{fontSize: 12}}
-          icon={{name: 'heart', type: 'ionicon', color: 'red'}}
+          icon={{name: 'notifications', type: 'ionicon', color: 'red'}}
         />
       </Tab>
 

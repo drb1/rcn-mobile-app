@@ -62,6 +62,11 @@
   <string>Zocial.ttf</string>
   <string>Fontisto.ttf</string>
 </array>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Your app needs access to photos to enable image selection.</string>
+<key>NSCameraUsageDescription</key>
+<string>Your app needs access to the camera to allow you to take pictures.</string>
+
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -10,11 +10,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import colors from '../lib/colors';
-import CalenderIcon from 'react-native-vector-icons/AntDesign';
+import CalenderIcon from 'react-native-vector-icons/Entypo';
 import TimeIcon from 'react-native-vector-icons/Ionicons';
 import {useSingleNewsData} from '../hooks/useQueryData';
 const {width, height} = Dimensions.get('window');
 import RenderHtml from 'react-native-render-html';
+import DateFormat from '../utils/DateFormatter';
 
 const DetailsScreen = ({route}) => {
   const {id} = route.params;
@@ -76,7 +77,7 @@ const DetailsScreen = ({route}) => {
         </Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <CalenderIcon name="calendar" size={20} color={'red'} />
+            <CalenderIcon name="user" size={20} color={'red'} />
             <Text
               style={{
                 fontWeight: 'bold',
@@ -84,7 +85,7 @@ const DetailsScreen = ({route}) => {
                 padding: 10,
                 color: 'black',
               }}>
-              {data?.createdAt}
+              {data?.authorName}
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -96,13 +97,15 @@ const DetailsScreen = ({route}) => {
                 padding: 10,
                 color: 'black',
               }}>
-              {data?.createdAt}
+              <DateFormat utcString={data?.createdAt}/>
             </Text>
           </View>
         </View>
       </View>
-
-      <RenderHtml contentWidth={width} source={source} />
+<View style={{padding:10}}>
+<RenderHtml contentWidth={width} source={source} />
+</View>
+     
     </View>
   ) : (
     <View

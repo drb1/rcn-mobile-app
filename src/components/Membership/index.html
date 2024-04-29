@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>Page Title</title>
+
+ 
+
+    <style>
+
+      h2,
+
+      h3,
+
+      h4 {
+
+        margin-top: unset;
+
+        margin-bottom: unset;
+
+      }
+
+ 
+
+      .bodyWrap {
+
+        font-weight: 700;
+
+        border: 1px solid black;
+
+        background-color: #b93034;
+
+        display: block;
+
+        width: 100%;
+
+        padding-bottom: 10px;
+
+        font-size: 12px;
+
+      }
+
+ 
+
+      .upper {
+
+        display: flex;
+
+        gap: 5px;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 5pt 10pt;
+
+      }
+
+ 
+
+      .mid {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+ 
+
+        color: white;
+
+        font-weight: 600;
+
+      }
+
+ 
+
+      .mid h2 {
+
+        color: yellow;
+
+        border-bottom: 1px solid yellow;
+
+        font-size: 36px;
+
+        font-weight: 900;
+
+      }
+
+ 
+
+      .mid h4 {
+
+        font-size: 28px;
+
+        font-weight: 600;
+
+      }
+
+ 
+
+      .body {
+
+        background-color: white;
+
+        padding: 5pt 10pt;
+
+        z-index: 1;
+
+        font-size: 12px;
+
+ 
+
+        display: flex;
+
+        flex-direction: row;
+
+        padding: 20px 15px;
+
+        justify-content: space-between;
+
+        position: relative;
+
+      }
+
+ 
+
+      .memberText {
+
+        display: inline-block;
+
+        color: #09378f;
+
+        border: 1px solid #09378f;
+
+        padding: 4px;
+
+        margin-right: 90pt;
+
+        margin: auto;
+
+      }
+
+ 
+
+      .labelWrap {
+
+        display: flex;
+
+        flex-direction: row;
+
+        gap: 5px;
+
+      }
+
+ 
+
+      .image {
+
+        width: 50px;
+
+        height: 50px;
+
+      }
+
+ 
+
+      .overlayImg {
+
+        position: absolute;
+
+        z-index: -1;
+
+        inset: 0;
+
+        text-align: center;
+
+      }
+
+ 
+
+      .overlayImg img {
+
+        width: 40%;
+
+        height: 100%;
+
+        margin: auto;
+
+        opacity: 0.2;
+
+        padding: 5pt 0;
+
+      }
+
+ 
+
+      .bodyLeft {
+
+        width: 73%;
+
+        display: flex;
+
+        gap: 10px;
+
+        flex-direction: column;
+
+        position: relative;
+
+      }
+
+ 
+
+      .bodyRight {
+
+        width: 24%;
+
+        display: flex;
+
+        gap: 2px;
+
+        flex-direction: column;
+
+        justify-content: space-between;
+
+        margin-left: 10px;
+
+      }
+
+ 
+
+      .photo {
+
+        width: 100%;
+
+        height: 132.28346456692915px;
+
+        object-fit: contain;
+
+      }
+
+ 
+
+      .sign {
+
+        width: 30px;
+
+        height: 30px;
+
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="bodyWrap">
+
+      <div class="upper">
+
+        <img src="./esewa.png" class="image" width={50} height={50} />
+
+ 
+
+        <div class="mid">
+
+          <h2>रिटर्नी सेन्टर नेपाल</h2>
+
+          <h4>Returnee Central Nepal</h4>
+
+        </div>
+
+ 
+
+        <img src="./esewa.png" class="image" />
+
+      </div>
+
+ 
+
+      <div class="body">
+
+        <div class="overlayImg">
+
+          <img src="./esewa.png" />
+
+        </div>
+
+ 
+
+        <div class="bodyLeft">
+
+          <div style="display: flex; width: 100%">
+
+            <div class="memberText">Membership Card</div>
+
+          </div>
+
+ 
+
+          <div class="labelWrap">
+
+            <div style="width: 9%">M.ID</div>
+
+            <div
+
+              style="
+
+                border-bottom: 1px dotted #000;
+
+                width: 10%;
+
+                font-weight: normal;
+
+              "
+
+            >
+
+              23
+
+            </div>
+
+          </div>
+
+ 
+
+          <div class="labelWrap">
+
+            <div style="width: 15%">Full Name:</div>
+
+            <div
+
+              style="
+
+                border-bottom: 1px dotted #000;
+
+                width: 85%;
+
+                font-weight: normal;
+
+                text-transform: capitalize;
+
+              "
+
+            >
+
+              Full Name
+
+            </div>
+
+          </div>
+
+ 
+
+          <div class="labelWrap">
+
+            <div style="width: 12%">Address:</div>
+
+            <div
+
+              style="
+
+                border-bottom: 1px dotted #000;
+
+                width: 88%;
+
+                font-weight: normal;
+
+                text-transform: capitalize;
+
+              "
+
+            >
+
+              Address:
+
+            </div>
+
+          </div>
+
+ 
+
+          <div
+
+            style="
+
+              display: flex;
+
+              gap: 5px;
+
+              justify-content: space-between;
+
+              flex-direction: row;
+
+            "
+
+          >
+
+            <div
+
+              style="width: 48%; gap: 5px; display: flex; flex-direction: row"
+
+            >
+
+              <div style="width: 30%">Issue date:</div>
+
+              <div
+
+                style="
+
+                  border-bottom: 1px dotted #000;
+
+                  width: 70%;
+
+                  font-weight: normal;
+
+                "
+
+              >
+
+                Issue date:
+
+              </div>
+
+            </div>
+
+ 
+
+            <div
+
+              style="width: 48%; gap: 5px; display: flex; flex-direction: row"
+
+            >
+
+              <div style="width: 38%">Expiry date:</div>
+
+              <div
+
+                style="
+
+                  border-bottom: 1px dotted #000;
+
+                  width: 62%;
+
+                  font-weight: normal;
+
+                "
+
+              >
+
+                Expiry date
+
+              </div>
+
+            </div>
+
+          </div>
+
+ 
+
+          <div class="labelWrap">
+
+            <div style="width: 20%">Citizenship no:</div>
+
+            <div
+
+              style="
+
+                border-bottom: 1px dotted #000;
+
+                width: 80%;
+
+                font-weight: normal;
+
+              "
+
+            >
+
+              Citizenship no
+
+            </div>
+
+          </div>
+
+        </div>
+
+ 
+
+        <div class="bodyRight">
+
+          <div class="labelWrap">
+
+            <img src="./esewa.png" class="photo" />
+
+          </div>
+
+ 
+
+          <div style="display: flex; flex-direction: column; margin-top: 5px">
+
+            <div
+
+              style="
+
+                border-bottom: 1px dotted #000;
+
+                width: 100%;
+
+                text-align: center;
+
+              "
+
+            >
+
+              <img
+
+                style="width: 20%; height: auto; margin-bottom: -10px"
+
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAz1BMVEX///8AAAD8/Pz39vb6+fnx8PDr6uru7u34+PfFw8Lz8/Lg397S0dDl5OPc29rX1tW7ubikoZ/Kycixr66FgoBjX1p+fHqqqah6dXGRjYoRAAA/MyyfnJq4tbObmJaOiodybmxWVVFsamhhW1VrZmBEPTUmGglYUkwcBQAwJBonGABIOzImEwBSSUYsHA9BNzEjCwAyJSBcXlkuMSUUGQhMQj1ISkQkJh5tbmo1Ni8yJyNTS0k+PzgXBQAxLyghFw0nIh8hEw0XEg0pJSUcFxMhIyySAAAKUElEQVR4nO2da2PauBKGPTaYGAzY+AbEgCFp055dNm3OIbspOeTS/v/ftPINS5ZE0iQgbPR8AKtWE8mWZkavxo6iSCQSiUQikUgkEolEIpFIJBKJRCKRVAJ9qolugnAuev6Z6DYIpmMo6qXoRggm6CiK0xHdCrEM2+jjQnQrxPIp/pj0RTdDKJ+Tz9O2CFfJp2UJa4CqCvvVOZB+XYlthVA00JPvgSG4IQLRoZ0eDMW2QyiQTUdDnEUQDuSrhUhkK8QCeYxod8U1QrBr+JJ3XXWFtkMk53p+NGyIbIdIrsz8qHuy7tEPtocnOxmmo+1h2Hz7jxEf8L5En9+7oIiS1RqHCGfw9T+XPL3M/Focjzh1asDMRuuBMUcr0qE4duorLP4Rf/RAZ55sQuES2wGzSg1oe8lX65xtt/JFU4x/iPaIoJuJRAO2WHSNhQXOOzzDUWPmiumQafcjGytM998cIZiL7KDxJ+u0PcMKdZ0MvVV+ZLFusxFhBctk1KgBneX28C/GskjHR0d7RleoA63r7aHB6iLuGGqrrWJR0BfGHvOf+Pi3B3tvjhCwazBx6NOXuLvIgona8a1VHDPGuk1Eh5dtukYN8LDBPqMjZuMPvGRN9t4eEfjYYO/SQklnhZca9dx6JKIgxjb7N6IUtega1WeC93tArw2viajBrGW83P2Ol+iBMCPF1K9UhToA+PCOqLWhQepHLltoqDhLPPDpheXT3SVR7NnlCnVgSHT7nDr/F1n8tNfGHAZKOQyI4G/UK5+/IleLQQ0Wj0ZZBegCXtKpEGFKTo9WHXIRvpbjXSBu/ap0VhmUFgnLcoUKMo1K/+ARQcGM2mUfk8WwBpNBhVIvHWL4d6i9lBXZ6WYdJsOiFPR3CINAR0F2KXjcv2cI9h6RD6D0D0DsILllz9EtGQSqwgfTA86Oz0cyLq2AI6Lcp5YEn8miud9tePvGOsDCLCyFPQ6pnVBKyqwkoX0uV/g42uF/D6PXqUCug3RyclyUR+KgFFK4+0rQ6vn/O5hIMy35+BURIQSUrFgyIAZDd3w/Z9bt3wfMcWiVjE5AzHD9spw4MiS9Y2sPYVLXhZvDqtZDUifQXvCOxG4Tq8I70Zx7GB364TEdSJ2ADINc6qGN0mTwPtQg9G/gVoRWexERxYCI/QZUqDgijaj9cQahHf4NthiR0iTUI6VN3Gj1B1WdDAn6H5WbZN3AP+ISH9ekv7siBuM5NTfJS4ZtUr6Dng93YfqbxCTvlQJmi1hDhEa5VSUR4f1LhrYN8I/o7ctvxJxWAb/1JjXWu+T0eKdz1O05zC3xeW4OGTDPCK2U3nhcE2HUeyLFVngP9/ZxbFw+Eb3u/B8v0WPdivDS9I2GrD3w72FuH01yl01ahHP8Rg9prWicWIhsxliUBP8KuigSgoVxHCMgAwiT5ERYwaB3EVIl5SpN4TJ/NyunZczu0Aw4uidmw9wXJHeYsIotes9NSyaLO0oiBf23kjH6wRzQDBD4OBAXjRSUXTwOYiTqrWMbYDnLWEVSN6/9JYYdAWxmLB32KDL6ZxFeIvYZVk2qhd0H9NHy+rG91OA1HegGqP/z2eAoOsuhSwQFioet3mcThcrUW8YD4Vz50Y8X3y/+cHP6ABvXOOb+J1xGeMnCtlfK0lGMEdtDt5N87b4GbctDEyCsxBa1SWopmH2Ihwh1C+NEfjNQxi1kQLn960z8BwDPOEYLyGRF+PmwWEHbMM7nQnEpnHhwXChTH3sAlqCJYmDU/6Ay/Y8prZyKng1RNJMfN4jzka5BZzsXsLHSCe8A/Eml+p/wnYiTivwsFzZAiwQ2GgFGgIIE2h5YcQxczbfHTIici0Jkd2ATbM3D9mY3YpfoxZIseQ20KYyDSlhAChUNc3Kr4TLfWjRhrHiPRcWMERoonqb48Ij9p7MheKKVgHegKlNiidjL7+8ZgKbBtKiXrva1h2R3QQNsHAzAr2bS4pk59T1/ghaxQISx61xTA+grBmzXOA1I5TM3TBbWfqGtBZ/wiPvoQ6IC4wdczcLROYDjEcsfM0+4WIATf2wdxRw2I+Tz+mgA+Do6kU+asKrPdQxhmMoYDecpvuHY3TvPZrYFfjwjtuvHqTvxUOzjo873kVtYxwNBVZVBBR7rUBnDU109YU7cenzGNeVelrY6SLrfgXwxmaRytZy72BLc6tCcPSc/uaLJSc1rMtDtA+DZqcvUPrRTszfIo4TOQ/ptPj8Hd3CH6tnIq+h+lSxAQQSlUOZhsfiOrxTS71VqCwxIw2k19wQBTOcbLY4lBnSKSkVwoJyFaW0GAMXCwUsPZ5lTMLKRkCsG8XJpEc8DG5mEbjXnwg86BH4GP4JlrnW20/3YCWQbEBas4lNbb+hOFbettFVlONa0Sl4DC2hhewix9XvKrYSbaAfG1v3pmziG2Gb0oclippdnuVB4c0GglXj5V18z8s6tOGDuwTjrZSMVnLcuQVFHsB4WWY23Rtb1xq/r+fvaK4QuMOTtVhwLoJGQh4xGsrE2XxQ1tHBeCG2Tdf6CGAPu99XQPeJ+Z/yjConBsyBfIKzjwWLztOMGKFYWSc0fP7yF+2fOfB7JT93CBjIbkIwWg6ufL1w1u/99hnU5ep6YmV8mJKtHF54zHzkaq2ig834IOnObbRpv3rLpdmgIK6k2OFpolMoIC4A8GojQ1OCKAqBPMtnBqcI1IOlz7q0GiYFvw0+AxOb3wJgA950Ptt9c76N5B8H8wjkxgGQNbLsOwM94rIw2DnAnQweUX5V9DzuZRYDjQSysN67R1UgtI/piC+gxt4H7+xkIqqjIify1FvWkTo4J4KJoeNNAcWEUh8lTMDdcg2BBUIWXo6jUgcJ4dKHgcRHBJzddUKGx4K/BDfmTfg6v3nk+Nkx+Up19rTSNYR5JW94oBIfKU9zSB1bAeVDeOrG6/HGgUW7T32EQkDc9YiFx5+VRd8R1C+rxlJ+w4xG225vfaNRR8YPfK9pW6E4lhbLdqMp0x7NIu+56VVCZKjJZw3zgnx1VUQygeekiKFpZUMXovZxgUwPQ9RnueFqCUltriar0+T5fcRf8c8fKmxK/x3zL1zmJyYBwdlg+2MtDe8dHe0eYFEWHa4dQFhH3lPHrcM0QSEPR+e6xfRKe4UzdORCW1ZMH34bOD4pn1dxHfgPuM+/MDo2lZjSA93z5aRiEhJA7EB5r+1J1ijvew7qzCobLb6TPU8n4G2z1w+U4AA2O+e/vfKysVX4lyhauuawhvEFPK6s1xmPPhuD2wO0QCjDd4OlESTEGMxehU8XMktdTtqrhI6OSLnwP7bDcMyIldXxaf5ityXKQ97V8izSfDiNcZGeu1RhGlBAd8X7yfqBFE/fkroGyKF+E4anNBcR9RJa901EQCu7J7Kqbev6pjd2oj8R0+FWDLIQ3sF4XokFjRw5SrVkUSwdeNm/9sSFPynOrkHu5Hzpwn6yV+jvyVOqPDSvbmfHz9U8Dy53TL92XSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiaSm1PCFNS/zL2SDeONFkEcCAAAAAElFTkSuQmCC"
+
+              />
+
+            </div>
+
+ 
+
+            <div style="margin-top: 10px; text-align: center">
+
+              <h6 style="color: #09378f; font-size: 14px; font-weight: 600">
+
+                Sign
+
+              </h6>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

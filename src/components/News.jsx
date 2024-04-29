@@ -14,6 +14,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {useNewsData} from '../hooks/useQueryData';
+import DateFormat from '../utils/DateFormatter';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
         // message.success("Category List Successfully refetched.");
 
         if (dataFetch.data && dataFetch.data.data) {
-          setData(dataFetch.data.data);
+          setData(dataFetch.data.data?.filter((item) => item.types === 'News'));
           setDataReady(true);
         } else {
           // message.error("Error while fetching data");
@@ -69,7 +70,7 @@ const App = () => {
           />
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.subTitle}>{item.subTitle}</Text>
-          <Text style={styles.date}>{item.createdAt}</Text>
+          <Text style={styles.date}><DateFormat utcString={item.createdAt}/></Text>
         </View>
       </View>
     </Pressable>
