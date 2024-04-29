@@ -54,7 +54,7 @@ export function BottomTab() {
         }}
       />
      
-      <Tab.Screen
+     {/*  <Tab.Screen
         name="Donate"
         component={DonateScreen}
         options={{
@@ -69,7 +69,7 @@ export function BottomTab() {
           ),
           tabBarIconStyle:{fontWeight: 'bold'}
         }}
-      />
+      /> */}
        <Tab.Screen
         name="Others"
         component={OthersScreen}

@@ -1,85 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+const convertADtoBS = (adYear, adMonth, adDay) => {
+  const bsEpochYear = 1970;
+  const bsEpochMonth = 1;
+  const bsEpochDay = 1;
 
-const NepaliCalendar = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [todayNepaliDate, setTodayNepaliDate] = useState(null);
+  const adEpochYear = 1913;
+  const adEpochMonth = 4;
+  const adEpochDay = 14;
 
-  useEffect(() => {
-    getTodayNepaliDate();
-  }, []);
+  let totalDaysAD = countTotalDays(adYear, adMonth, adDay);
+  let totalDaysBS = totalDaysAD + bsDaysFromADToEpoch - adDaysFromEpochToAD;
 
-  const getTodayNepaliDate = () => {
-    // This is a placeholder function; replace it with actual Nepali date logic
-    const todayNepali = '2080-11-23'; // Placeholder date
-    setTodayNepaliDate(todayNepali);
-  };
+  let bsYear = bsEpochYear;
+  let bsMonth = bsEpochMonth;
+  let bsDay = bsEpochDay;
 
-  const isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0 && year % 100 === 0);
-  };
-
-  const getDaysInMonth = (year, month) => {
-    const daysInMonth = [0, 31, 32, 31, 32, 31, 32, 30, 30, 30, 30, 30, 29];
-    return daysInMonth[month] + (month === 12 && isLeapYear(year) ? 1 : 0);
-  };
-
-  const generateMarkedDates = () => {
-    const markedDates = {};
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth() + 1;
-
-    for (let year = currentYear; year <= currentYear + 1; year++) {
-      for (let month = 1; month <= 12; month++) {
-        const daysInMonth = getDaysInMonth(year, month);
-        for (let day = 1; day <= daysInMonth; day++) {
-          const nepaliDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
-          markedDates[nepaliDate] = { marked: true };
-        }
+  while (totalDaysBS > 0) {
+      const daysInYear = isLeapYearBS(bsYear) ? 366 : 365;
+      if (totalDaysBS >= daysInYear) {
+          totalDaysBS -= daysInYear;
+          bsYear++;
+      } else {
+          const monthLengths = getBSMonthLengths(bsYear);
+          for (let i = 0; i < 12; i++) {
+              if (totalDaysBS < monthLengths[i]) {
+                  bsMonth = i + 1;
+                  bsDay = totalDaysBS + 1;
+                  totalDaysBS = 0;
+                  break;
+              }
+              totalDaysBS -= monthLengths[i];
+          }
       }
-    }
+  }
 
-    return markedDates;
-  };
-
-  const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
-    // You can add your logic here for handling the selected Nepali date
-    Alert.alert('Selected Nepali Date', `You selected: ${day.dateString}`);
-  };
-
-  return (
-    <View style={styles.container}>
-      <Calendar
-        onDayPress={handleDayPress}
-        markedDates={{ ...generateMarkedDates(), [selectedDate]: { selected: true } }}
-        theme={{
-          textDayFontFamily: 'Arial',
-          textMonthFontFamily: 'Arial',
-          textDayHeaderFontFamily: 'Arial',
-        }}
-      />
-      <View style={styles.todayContainer}>
-        <Text style={styles.todayText}>{`Today's Nepali Date: ${todayNepaliDate}`}</Text>
-      </View>
-    </View>
-  );
+  return { bsYear, bsMonth, bsDay };
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  todayContainer: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  todayText: {
-    fontSize: 18,
-  },
-});
+const countTotalDays = (year, month, day) => {
+  let totalDays = 0;
 
-export default NepaliCalendar;
+  for (let y = 0; y < year; y++) {
+      totalDays += isLeapYear(y) ? 366 : 365;
+  }
+
+  for (let m = 1; m < month; m++) { // Start from month 1
+      totalDays += getMonthLength(year, m);
+  }
+
+  totalDays += day - 1;
+
+  return totalDays;
+};
+
+
+const isLeapYear = (year) => {
+  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+};
+
+const isLeapYearBS = (year) => {
+  return year % 4 === 0;
+};
+
+const getMonthLength = (year, month) => {
+  const isLeap = isLeapYear(year);
+  switch (month) {
+      case 1:
+          return 31;
+      case 2:
+          return isLeap ? 29 : 28;
+      case 3:
+          return 31;
+      case 4:
+          return 30;
+      case 5:
+          return 31;
+      case 6:
+          return 30;
+      case 7:
+          return 31;
+      case 8:
+          return 31;
+      case 9:
+          return 30;
+      case 10:
+          return 31;
+      case 11:
+          return 30;
+      case 12:
+          return 31;
+      default:
+          return 0;
+  }
+};
+
+const getBSMonthLengths = (year) => {
+  return isLeapYearBS(year) ?
+      [32, 32, 31, 32, 31, 31, 31, 30, 30, 30, 30, 30] :
+      [31, 31, 31, 32, 31, 31, 31, 30, 30, 30, 30, 30];
+};
+
+// Days from AD epoch to Bikram Sambat epoch
+const adDaysFromEpochToAD = countTotalDays(1970, 1, 1);
+const bsDaysFromADToEpoch = countTotalDays(1913, 4, 14);
+
+// Usage
+/* const adYear = 2024;
+const adMonth = 4;
+const adDay = 3;
+
+const bsDate = convertADtoBS(adYear, adMonth, adDay);
+console.log("BS Date:", bsDate); */
+export default convertADtoBS
